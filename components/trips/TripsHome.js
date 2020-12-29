@@ -1,26 +1,16 @@
 import * as eva from "@eva-design/eva";
 
-import { Button, Card, Layout, Text } from "@ui-kitten/components";
-import { Content, List, ListItem, View } from "native-base";
-import { Image, SafeAreaView, StyleSheet } from "react-native";
-
+import { Layout } from "@ui-kitten/components";
 import React from "react";
-import TripRow from "./TripRow";
+import { StyleSheet } from "react-native";
+import TripsList from "./TripsList";
 import { observer } from "mobx-react";
 import tripsStore from "../../stores/TripsStore";
 
 const TripsHome = ({ navigation }) => {
   return (
     <Layout style={styles.container}>
-      <Content>
-        <List>
-          {tripsStore.trips.map((trip) => (
-            <ListItem onPress={() => navigation.navigate("TripDetails", trip)}>
-              <TripRow trip={trip} />
-            </ListItem>
-          ))}
-        </List>
-      </Content>
+      <TripsList trips={tripsStore.trips} navigation={navigation} />
     </Layout>
   );
 };

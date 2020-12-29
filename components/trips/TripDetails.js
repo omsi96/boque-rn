@@ -3,6 +3,7 @@ import { Layout, Text } from "@ui-kitten/components";
 
 import { Content } from "native-base";
 import MapView from "react-native-maps";
+import ProfileImage from "../profile/ProfileImage";
 import React from "react";
 
 const TripDetails = ({ navigation, route }) => {
@@ -60,10 +61,7 @@ const TripDetails = ({ navigation, route }) => {
             }}
           />
           <View style={styles.profileInfo}>
-            <Image
-              style={styles.ownerImage}
-              source={{ uri: trip.profile.image }}
-            />
+            <ProfileImage src={trip.profile.image} />
             <Text category="h5" style={styles.ownerText}>
               {trip.profile.name}
             </Text>
@@ -101,17 +99,7 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
   },
-  ownerImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginRight: 10,
-    margin: 12,
-    borderStyle: "solid",
-    borderColor: "white",
-    borderWidth: 4,
-    shadowRadius: 60,
-  },
+
   title: {
     margin: 12,
   },

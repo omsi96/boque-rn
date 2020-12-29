@@ -1,9 +1,8 @@
-import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import decode from "jwt-decode";
+import instance from "./instance";
 import { makeAutoObservable } from "mobx";
-const authAxios = axios.create({
-  baseURL: "http://53bfd7c48401.ngrok.io/",
-});
+
 class AuthStore {
   constructor() {
     makeAutoObservable(this);
@@ -12,16 +11,23 @@ class AuthStore {
 
   signUp = async (user) => {
     console.log("Requesting:", user);
-    const response = await authAxios.post("signup", user);
-    console.log("user signwd up", response);
+    const response = await instance.post("signup", user);
+    this.setUser(response);
+    console.log("user signed up", response);
   };
+
   signIn = async (userCredentials) => {
     console.log("Signing in with credentials:", userCredentials);
-    const encodedPayload = await authAxios.post("signin", userCredentials);
+    const response = await instance.post("signin", userCredentials);
+    this.setUser(response.data.token);
     console.log("Signed in ");
-    this.user = decode(encodedPayload.data.token);
-    console.log("User signed in:", this.user);
     return true;
+  };
+
+  setUser = async (token) => {
+    await AsyncStorage.setItem("myToken", token);
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    this.user = decode(token);
   };
 }
 

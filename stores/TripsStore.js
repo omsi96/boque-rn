@@ -1,9 +1,5 @@
-import axios from "axios";
-import decode from "jwt-decode";
+import instance from "./instance";
 import { makeAutoObservable } from "mobx";
-const instance = axios.create({
-  baseURL: "http://53bfd7c48401.ngrok.io/",
-});
 class TripsStore {
   constructor() {
     makeAutoObservable(this);

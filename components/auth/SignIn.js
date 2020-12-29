@@ -19,6 +19,7 @@ const SignIn = ({ navigation }) => {
     try {
       await authStore.signIn(credentials);
       if (authStore.user) {
+        navigation.replace("Trips");
       } else {
         console.log("COULDN'T SIGN IN!");
         alert("couldn't sign in!");
