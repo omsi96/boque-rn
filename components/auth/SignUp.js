@@ -1,8 +1,7 @@
-import { Button, Layout, Text } from "@ui-kitten/components";
+import { Button, Input, Layout, Spinner, Text } from "@ui-kitten/components";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
-import { Input } from "@ui-kitten/components";
 import { InputAccessoriesShowcase } from "../controls/fields";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import authStore from "../../stores/AuthStore";
@@ -13,14 +12,18 @@ const SignUp = ({ navigation }) => {
     password: "",
     name: "",
   });
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       await authStore.signUp(user);
-      console.log("Signed in scucessfully!");
+
+      console.log("Signed up scucessfully!");
       navigation.navigate("");
     } catch (error) {
       alert(`couldn't sign up! ${error.message}`);
     }
+    setLoading(false);
   };
   return (
     <Layout style={styles.container}>
@@ -48,8 +51,12 @@ const SignUp = ({ navigation }) => {
           value={user.password}
           onChangeText={(password) => setUser({ ...user, password })}
         />
-        <Button status="success" style={styles.button} onPress={handleSubmit}>
-          Create Account
+        <Button
+          status={loading ? "disabled" : "success"}
+          style={styles.button}
+          onPress={handleSubmit}
+        >
+          {loading ? <Spinner status="control" /> : "Create Account"}
         </Button>
       </KeyboardAwareScrollView>
     </Layout>

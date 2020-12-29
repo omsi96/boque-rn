@@ -16,17 +16,12 @@ class AuthStore {
     console.log("user signwd up", response);
   };
   signIn = async (userCredentials) => {
-    try {
-      console.log("Signing in with credentials:", userCredentials);
-      const encodedPayload = await authAxios.post("signin", userCredentials);
-      console.log("Signed in ");
-      this.user = decode(encodedPayload.data.token);
-      console.log("User signed in:", this.user);
-      return true;
-    } catch (error) {
-      console.log("couldn't get the token", error);
-      return false;
-    }
+    console.log("Signing in with credentials:", userCredentials);
+    const encodedPayload = await authAxios.post("signin", userCredentials);
+    console.log("Signed in ");
+    this.user = decode(encodedPayload.data.token);
+    console.log("User signed in:", this.user);
+    return true;
   };
 }
 

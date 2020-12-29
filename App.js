@@ -13,13 +13,14 @@ import React from "react";
 import Route from "./navigation";
 import SignIn from "./components/auth/SignIn";
 import { StyleSheet } from "react-native";
+import TripsHome from "./components/trips/TripsHome";
 
 export default function App() {
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.dark}>
-        <Route />
+        <TripsHome />
       </ApplicationProvider>
     </>
   );

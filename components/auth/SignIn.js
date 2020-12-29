@@ -1,4 +1,4 @@
-import { Button, Layout, Text } from "@ui-kitten/components";
+import { Button, Layout, Spinner, Text } from "@ui-kitten/components";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
@@ -12,12 +12,21 @@ const SignIn = ({ navigation }) => {
     username: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async () => {
-    await authStore.signIn(credentials);
-    if (authStore.user) {
-    } else {
-      console.log("COULDN'T SIGN IN!");
-      alert("couldn't sign in!");
+    setLoading(true);
+    try {
+      await authStore.signIn(credentials);
+      if (authStore.user) {
+      } else {
+        console.log("COULDN'T SIGN IN!");
+        alert("couldn't sign in!");
+      }
+      setLoading(true);
+    } catch (error) {
+      alert(`couldn't sign in! with error : ${error.message}`);
+      setLoading(false);
     }
   };
   return (
@@ -43,8 +52,12 @@ const SignIn = ({ navigation }) => {
             setCredentials({ ...credentials, password })
           }
         />
-        <Button status="success" style={styles.button} onPress={handleSubmit}>
-          Sign in
+        <Button
+          status={loading ? "disabled" : "success"}
+          style={styles.button}
+          onPress={handleSubmit}
+        >
+          {loading ? <Spinner status="control" /> : "Sign in"}
         </Button>
         <Button
           style={{ ...styles.button }}
@@ -63,6 +76,7 @@ export default SignIn;
 const styles = StyleSheet.create({
   text: {
     margin: 40,
+    textAlign: "center",
   },
   button: {
     margin: 10,
