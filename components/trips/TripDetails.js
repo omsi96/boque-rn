@@ -29,6 +29,7 @@ const TripDetails = ({ navigation, route }) => {
         longitudeDelta,
       };
     } catch (error) {
+      console.log("SOME CALCULATIONS WENT WRONG");
       return {
         latitude: 0,
         longitude: 0,
@@ -46,7 +47,12 @@ const TripDetails = ({ navigation, route }) => {
           source={{ uri: trip.image }}
         />
         <View style={[styles.contentContainer, styles.column]}>
-          <Text category="h1">{trip.title}</Text>
+          <Text style={styles.description} category="h1">
+            {trip.title}
+          </Text>
+          <Text style={styles.description} category="p">
+            {trip.description}
+          </Text>
           <MapView
             style={styles.map}
             initialRegion={{
@@ -61,7 +67,6 @@ const TripDetails = ({ navigation, route }) => {
             <Text category="h5" style={styles.ownerText}>
               {trip.profile.name}
             </Text>
-            <Text category="p">{trip.description}</Text>
           </View>
         </View>
       </Content>
@@ -108,6 +113,9 @@ const styles = StyleSheet.create({
     shadowRadius: 60,
   },
   title: {
+    margin: 12,
+  },
+  description: {
     margin: 12,
   },
   ownerText: {
