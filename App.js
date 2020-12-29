@@ -20,7 +20,7 @@ export default function App() {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.dark}>
-        <TripsHome />
+        <Route />
       </ApplicationProvider>
     </>
   );

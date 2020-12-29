@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import SignIn from "../components/auth/SignIn";
 import SignUp from "../components/auth/SignUp";
+import TripDetails from "../components/trips/TripDetails";
+import TripsHome from "../components/trips/TripsHome";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
@@ -18,16 +20,10 @@ const Routes = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{
-            // headerShown: false,
-            // headerTintColor: "white",
-            headerStyle: {},
-          }}
-        />
+        <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Trips" component={TripsHome} />
+        <Stack.Screen name="TripDetails" component={TripDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
